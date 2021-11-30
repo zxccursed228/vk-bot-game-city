@@ -58,6 +58,7 @@ def main():
                     send_message(user1, 'Игра началась!')
                     send_message(user2, 'Игра началась!')
                     send_message(lobbies[-1].get_active_player_id(), 'вы ходите первым, наховите город на любую букву')
+                    send_message(lobbies[-1].get_inactive_player_id(), 'ваш соперник ходит первым')
             elif event.user_id in users_in_game:
                 city = event.text.lower()
                 lobby = find_lobby(lobbies, event.user_id)
@@ -69,10 +70,10 @@ def main():
                     users_in_game.remove(lobby.get_inactive_player_id())
                     lobbies.remove(lobby)
                     continue
-                if not lobby.is_correct_letter(city[0].lower()):
+                elif not lobby.is_correct_letter(city[0].lower()):
                     send_message(event.user_id, 'Не та буква даун.... купи букваръ! учи геаграфию')
                     continue
-                if lobby.get_active_player_id() != event.user_id:
+                elif lobby.get_active_player_id() != event.user_id:
                     send_message(event.user_id, 'завали ебло, не твой ход')
                     continue
 
